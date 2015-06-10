@@ -30,6 +30,6 @@ Features
 - [x] Provide constants based on Django settings to the webpack configuration
 - [x] Webpack configuration can be setup via Django settings
 - [ ] Webpack workflow is integrated inside your Django app (./manage.py [react_build, react_hot])
-- [ ] Helpers to setup urls when letting React do the frontend Routing
+- [x] Helpers to setup urls when letting React do the frontend Routing
 - [ ] Full test coverage
 - [ ] Documented
