@@ -2,27 +2,33 @@
 
 language: python
 
-python:
-  - "3.4"
-  - "3.3"
-  - "2.7"
-  - "nightly"
-
-env:
-  - DJANGO_VERSION=1.5.6
-  - DJANGO_VERSION=1.6.3
-  - DJANGO_VERSION=1.7.2
-  - DJANGO_VERSION=1.8
-  - DJANGO_VERSION=https://github.com/django/django/archive/master.tar.gz
-
-# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
-  - pip install -q Django==$DJANGO_VERSION
+  - pip install tox
   - python setup.py -q install
   - pip install -r requirements-test.txt
 
-# command to run tests using coverage, e.g. python setup.py test
-script: coverage run --source tg_react runtests.py
+script:
+  - tox
 
-# report coverage to coveralls.io
+env:
+  - TOXENV=py27-django15
+  - TOXENV=py27-django16
+  - TOXENV=py27-django17
+  - TOXENV=py27-django18
+  - TOXENV=py32-django15
+  - TOXENV=py32-django16
+  - TOXENV=py32-django17
+  - TOXENV=py32-django18
+  - TOXENV=py33-django15
+  - TOXENV=py33-django16
+  - TOXENV=py33-django17
+  - TOXENV=py33-django18
+  - TOXENV=py34-django15
+  - TOXENV=py34-django16
+  - TOXENV=py34-django17
+  - TOXENV=py34-django18
+  - TOXENV=py34-djangomaster
+  - TOXENV=py35-django18
+  - TOXENV=py35-djangomaster
+
 after_success: coveralls
