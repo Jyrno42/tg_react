@@ -2,21 +2,16 @@
 Thorgate React
 =============================
 
-.. image:: https://badge.fury.io/py/tg_react.png
-    :target: https://badge.fury.io/py/tg_react
-
-.. image:: https://travis-ci.org/thorgate/tg_react.png?branch=master
-    :target: https://travis-ci.org/thorgate/tg_react
-
-.. image:: https://coveralls.io/repos/thorgate/tg_react/badge.png?branch=master
-    :target: https://coveralls.io/r/thorgate/tg_react?branch=master
+[![pypi Status](https://badge.fury.io/py/tg_react.png)](https://badge.fury.io/py/tg_react)
+[![Build Status](https://travis-ci.org/thorgate/tg_react.svg?branch=master)](https://travis-ci.org/thorgate/tg_react)
+[![Coverage Status](https://coveralls.io/repos/thorgate/tg_react/badge.svg)](https://coveralls.io/r/thorgate/tg_react)
 
 Thorgate React is a set of commonly used helpers we use at Thorgate to develop Django based React powered applications.
 
 Documentation
 -------------
 
-The full documentation is at https://tg_react.readthedocs.org.
+The full documentation will be available at https://tg_react.readthedocs.org.
 
 Quickstart
 ----------
