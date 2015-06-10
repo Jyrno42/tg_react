@@ -1,0 +1,91 @@
+var path = require("path");
+var webpack = require("webpack");
+
+
+module.exports = {
+    entry: {
+        vendor: ["lodash", "react"],
+        app: "./entry"
+    },
+    output: "",
+
+    module: {
+        preLoaders: [
+            {% if jshint %}
+                {
+                    test: /\.js$/,
+                    exclude: path.join(__dirname, "node_modules"),
+                    loader: "jshint-loader"
+                },
+                {
+                    test: /\.jsx?/,
+                    exclude: path.join(__dirname, "node_modules"),
+                    loader: "jsxhint-loader"
+                }
+            {% endif %}
+        ]
+    },
+
+    target: "{% if pre_render %}node{% else %}web{% endif %}",
+    resolve: {
+        root: path.join(__dirname, "src"),
+        alias: {
+            {% if use_react_addons %}react$: 'react/addons.js'{% endif %}
+        }
+    },
+
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "vendor",
+            minChunks: Infinity
+        }),
+
+        new webpack.DefinePlugin({{ constants|safe }}),
+
+        {% if pre_render %}new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),{% endif %}
+
+        {% if minify %}
+            new webpack.optimize.DedupePlugin(),
+            new webpack.optimize.UglifyJsPlugin(),
+            new webpack.DefinePlugin({
+                "process.env": {
+                    NODE_ENV: JSON.stringify("production")
+                }
+            })
+        {% endif %}
+    ],
+
+{% if jshint %}
+    jshint: {
+        emitErrors: false,
+        failOnHint: false,
+        esnext: true,
+
+        forin: true,
+        browser: true,
+        nonew: true,
+
+        reporter: function (errors) {
+            var hints = [];
+            if (errors) {
+                {% if not no_beep %}
+                    process.stdout.write('\x07');
+                {% endif %}
+
+                errors.forEach(function (error) {
+                    if (!error) {
+                        return;
+                    }
+
+                    var message = "  " + error.reason + " @ line " + error.line + " char " + error.character + "\n    " + error.evidence;
+                    hints.push(message);
+
+                }, this);
+            }
+
+            var message = hints.join("\n\n");
+            this.emitWarning("jshint results in errors\n" + message);
+        }
+    }
+{% endif %}
+};

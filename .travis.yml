@@ -1,0 +1,28 @@
+# Config file for automatic testing at travis-ci.org
+
+language: python
+
+python:
+  - "3.4"
+  - "3.3"
+  - "2.7"
+  - "nightly"
+
+env:
+  - DJANGO_VERSION=1.5.6
+  - DJANGO_VERSION=1.6.3
+  - DJANGO_VERSION=1.7.2
+  - DJANGO_VERSION=1.8
+  - DJANGO_VERSION=https://github.com/django/django/archive/master.tar.gz
+
+# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+install:
+  - pip install -q Django==$DJANGO_VERSION
+  - python setup.py -q install
+  - pip install -r requirements-test.txt
+
+# command to run tests using coverage, e.g. python setup.py test
+script: coverage run --source tg_react runtests.py
+
+# report coverage to coveralls.io
+after_success: coveralls
