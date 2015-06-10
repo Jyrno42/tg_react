@@ -24,15 +24,9 @@ try:
         MIDDLEWARE_CLASSES=(),
         LOGGING={
             'version': 1,
-            'handlers': {
-                'null': {
-                    'level': 'DEBUG',
-                    'class':'django.utils.log.NullHandler',
-                },
-            },
             'loggers': {
                 'django.db.backends': {
-                    'handlers': ['null'],
+                    'handlers': [],
                     'propagate': False,
                     'level':'DEBUG',
                 },
