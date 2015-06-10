@@ -1,9 +1,14 @@
 import json
+
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.core.serializers.json import DjangoJSONEncoder
 from django.template.loader import render_to_string
-from django.utils.module_loading import import_string
+
+try:
+    from django.utils.module_loading import import_string
+
+except ImportError:
+    from django.utils.module_loading import import_by_path as import_string
 
 
 class WebpackConstants(object):
